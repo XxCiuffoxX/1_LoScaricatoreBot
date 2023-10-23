@@ -1,0 +1,17 @@
+{
+    "welcome": "Hi, I'm LoScaricatoreBot.😉\nSend me a YT link for the magic.🪄",
+    "not_a_link": "This isn't a link!⚠️\nSend me a YT link, try again.😄\n",
+    "help": "Send me a YouTube link, choose the format you want, and I will send you the audio file (.m4a) or video file (.mp4).\n\nWays to send me the URL:\n1 Share the video link directly from the YouTube app.\n2 Copy and paste the link from your browser\n3Use Telegram's inline bot by typing @vid titleVideo",
+    "choose_format": "Choose the format.\n👇",
+    "button_1": "🔊Only Audio",
+    "button_2": "🎬Video (with sound)",
+    "video_too_long": "Video duration too long.🤔\n(Choose a shorter video, maximum 8 minutes)",
+    "change_language": "Cambia Lingua",
+    "language_set": "Language chanced.",
+    "download_request": "Request made.👍\nWe're trying to download it.💿",
+    "download_error": "Sorry, download request failed.\nWe need some time to fix this.",
+    "send_ewquest": "The download is finished.👌\nWe are now trying to send you the file.📤",
+    "send_error": "Sorry, request to send failed.\nWe need some time to fix this.",
+    "audio_button": "🔊Only Audio",
+    "video_button": "🎬Video"
+}

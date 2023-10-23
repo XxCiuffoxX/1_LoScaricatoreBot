@@ -1,0 +1,17 @@
+{
+    "welcome": "Ciao, sono LoScaricatoreBot.😉\nInviami un link di YT per la magia.🪄",
+    "not_a_link": "Questo non è un link!⚠️\nMandami un link di YT, riprova.😄\n",
+    "help": "Mandami un link di YouTube, scegli il formato che vuoi e ti invierè il file audio (.m4a) o il file video (.mp4).\n\nMetodi per inviarmi un link:\n1 Condividi il video direttamente dall'app di YouTube.\n2 Copia e incolla il link dal tuo browser\n3Usa il bot inline di Telegram bot digitando @vid titoloDelVideo",
+    "choose_format": "Scegli il formato.\n👇",
+    "button_1": "🔊Solo audio",
+    "button_2": "🎬Video (con audio)",
+    "video_too_long": "Durata del video troppo lunga.🤔\n(Scegli un altro video, massimo 8 minuti)",
+    "change_language": "Cambia Lingua",
+    "language_set": "Lingua cambiata.",
+    "download_request": "Richiesta effettuata.👍\nStiamo provando ad effettuare il download.💿",
+    "download_error": "Mi scuso, la richiesta di download è fallita.\nAbbiamo bisogno di tempo per risolvere il problema.",
+    "send_ewquest": "Il download è finito.👌\nStiamo provando ad inviarti il file.📤",
+    "send_error": "Mi scuso, la richiesta di invio è fallita.\nAbbiamo bisogno di tempo per risolvere il problema.",
+    "audio_button": "🔊Solo Audio",
+    "video_button": "🎬Video"
+}
