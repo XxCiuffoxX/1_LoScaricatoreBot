@@ -35,13 +35,6 @@ def get_video_id(video_url):
         return None  # L'URL non è riconosciuto come link di YouTube
 
 
-# function to save the received links in a txt file
-def file_txt(video_link):
-
-    with open('Video_Scaricati.txt', 'a') as text_file:
-        text_file.write('Receive ->  ' + video_link + '\n')
-
-
 # function to check the playing time of the video
 def length_control(link):
 
@@ -392,9 +385,6 @@ def echo_message(message):
 
             # assigns the received url to "user_session".
             user_session['video_url'] = message.text
-
-            # call the file_txt function
-            file_txt(video_url)
 
             # call the length_control function
             if length_control(video_url):
