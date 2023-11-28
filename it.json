@@ -10,7 +10,7 @@
     "language_set": "Lingua cambiata.",
     "download_request": "Richiesta effettuata.👍\nStiamo provando ad effettuare il download.💿",
     "download_error": "Mi scuso, la richiesta di download è fallita.\nAbbiamo bisogno di tempo per risolvere il problema.",
-    "send_ewquest": "Il download è finito.👌\nStiamo provando ad inviarti il file.📤",
+    "send_request": "Il download è finito.👌\nStiamo provando ad inviarti il file.📤",
     "send_error": "Mi scuso, la richiesta di invio è fallita.\nAbbiamo bisogno di tempo per risolvere il problema.",
     "audio_button": "🔊Solo Audio",
     "video_button": "🎬Video"

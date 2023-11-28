@@ -20,19 +20,26 @@ import re
 
 # function to get the video id
 def get_video_id(video_url):
+
+    # splits the URL
     parsed_url = urlparse(video_url)
     
     if parsed_url.netloc == 'youtu.be':
-        # Estrai l'ID del video dagli URL youtu.be
+
+        # Extract the video ID from "youtu.be" URLs
         video_id = parsed_url.path.lstrip('/')
         return video_id
+    
     elif parsed_url.netloc == 'www.youtube.com':
-        # Estrai l'ID del video dagli URL completi di YouTube
+
+        # Extract the video ID from "youtube.com" URLs
         query_parameters = parse_qs(parsed_url.query)
         video_id = query_parameters.get('v', [None])[0]
         return video_id
     else:
-        return None  # L'URL non è riconosciuto come link di YouTube
+
+        # the URL is not recognized as a YouTube link
+        return None
 
 
 # function to check the playing time of the video
@@ -103,42 +110,48 @@ def Download(link, format_num, call, user_session):
             print("add metadata failed")  
 
 
+# function to add metadata to the file
 def add_metadata(m4a_file_name, author, date, video_url, user_session):
 
+    # get the video id
     video_id = get_video_id(video_url)
 
+    # check if video_is is not null
     if(video_id is not None):
+
+        # gets and downloads the video cover
         thumbnail_url = f'https://img.youtube.com/vi/'+video_id+'/hqdefault.jpg'
         cover_image = video_id + '.jpg'
         cover_image_path = cover_image
         urllib.request.urlretrieve(thumbnail_url, cover_image)
 
+    # store the cover_image path in user_session
     user_session['cover_image_path'] = str(cover_image_path)
 
-    # Carica il file M4A
+    # upload the M4A file
     audio = MP4(m4a_file_name)
 
-    # Aggiungi i metadati
+    # adds metadata
     audio["\xa9nam"] = m4a_file_name.replace(".m4a", "") # Nome della traccia
     audio["\xa9ART"] = author  # Artista
     audio["\xa9day"] = date # Anno di pubblicazione
     audio["\xa9cmt"] = "@LoScaricatoreBot"  # Commento
 
-    # Aggiungi l'immagine di copertina
+    # add your cover photo
     with open(cover_image_path, "rb") as cover_image:
         cover_data = cover_image.read()
         audio["covr"] = [MP4Cover(cover_data, imageformat=MP4Cover.FORMAT_JPEG)]
 
-    # Salva il file M4A con i metadati
+    # save the M4A file with metadata
     audio.save(m4a_file_name)     
 
     user_session['cover_image_path'] = cover_image_path
-    # remove_file(cover_image_path) 
 
 
 # function that sends an error message in case of failed download
 def download_error(call, user_session):
         
+    # gets the user's language
     user_language = user_session.get('language', None)
 
     # send the error message to the user
@@ -153,9 +166,6 @@ def Send_file(chat_id, format_num, call, user_session):
 
     # assign the file name to m4a_file_name
     m4a_file_name = user_session.get('m4a_file_name')
-    
-    # thumbnail_file_input = telebot.types.InputFile(user_session.get('cover_image_path'))
-    
 
     #check if there is a need to send an m4a file or mp4 file
     if (format_num == 0):
@@ -176,6 +186,7 @@ def Send_file(chat_id, format_num, call, user_session):
         # close m4a file
         m4a_file.close()
 
+        # close cover_image file
         cover_image.close()
 
         # call the remove_file function
@@ -207,6 +218,7 @@ def Send_file(chat_id, format_num, call, user_session):
 # function that sends an error message in case of failed sending
 def send_error(call, user_session):
 
+    # gets the user's language
     user_language = user_session.get('language', None)
 
     # send the error message to the user
@@ -279,6 +291,7 @@ def send_welcome(message):
 
         user_session = all_sessions[user_id]
         
+        # gets the user's language
         user_language = user_session.get('language', None)
 
         if user_language in translations:
@@ -294,7 +307,6 @@ def send_welcome(message):
         user_session = all_sessions[user_id]
         language(message)
         
-
 
 # Handle '/end'
 @bot.message_handler(commands=['end'])
@@ -320,6 +332,7 @@ def help(message):
     
     user_session = all_sessions[user_id]
         
+    # gets the user's language
     user_language = user_session.get('language', None)
 
     if user_language in translations:
@@ -421,6 +434,9 @@ def callback_query(call):
     # assigns the user's session to "user_session"
     user_session = all_sessions[user_id]
 
+    # gets the user's language
+    user_language = user_session.get('language', None)
+
     # assign video_url the user's url
     video_url = user_session.get(('video_url'))
 
@@ -431,12 +447,12 @@ def callback_query(call):
         user_session['format'] = 'm4a'
         
         # notifies the user that the system has received the request
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, disable_web_page_preview= True, text='Request made.👍\nWe\'re trying to download it.💿')
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, disable_web_page_preview= True, text=translations[user_language]['download_request'])
         
         Download(video_url, 0, call, user_session)
 
         # notifies the user that the system has downloaded the file and is now trying to send it
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, disable_web_page_preview= True, text='The download is finished.👌\nWe are now trying to send you the file.📤')
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, disable_web_page_preview= True, text=translations[user_language]['send_request'])
 
         # call the Send_file function to send the file to the user
         Send_file(user_id, 0, call, user_session)
@@ -448,13 +464,13 @@ def callback_query(call):
         user_session['format'] = 'mp4'
                 
         # notifies the user that the system has received the request
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, disable_web_page_preview= True, text='Request made.👍\nWe\'re trying to download it.💿')
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, disable_web_page_preview= True, text=translations[user_language]['download_request'])
         
         # call the Download function to download the file
         Download(video_url, 1, call, user_session)
 
         # notifies the user that the system has downloaded the file and is now trying to send it
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, disable_web_page_preview= True, text='The download is finished.👌\nWe are now trying to send you the file.📤')
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, disable_web_page_preview= True, text=translations[user_language]['send_request'])
         
         # call the Send_file function to send the file to the user
         Send_file(user_id, 1, call, user_session)

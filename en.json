@@ -10,7 +10,7 @@
     "language_set": "Language chanced.",
     "download_request": "Request made.👍\nWe're trying to download it.💿",
     "download_error": "Sorry, download request failed.\nWe need some time to fix this.",
-    "send_ewquest": "The download is finished.👌\nWe are now trying to send you the file.📤",
+    "send_request": "The download is finished.👌\nWe are now trying to send you the file.📤",
     "send_error": "Sorry, request to send failed.\nWe need some time to fix this.",
     "audio_button": "🔊Only Audio",
     "video_button": "🎬Video"
